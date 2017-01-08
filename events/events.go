@@ -87,14 +87,14 @@ func CreateEventNode(event Event) (Event, error) {
 		"date":           event.Properties.DateCreated,
 		"description":    event.Properties.Description,
 		"keywords":       event.Properties.Keywords,
-		"type-of-event":  event.Properties.TypeOfEvent,
+		"typeOfEvent":    event.Properties.TypeOfEvent,
 		"emblem":         event.Properties.Emblem,
 		"rating":         event.Properties.Rating,
 		"street-address": event.Properties.Location.StreetAddress,
 		"city":           event.Properties.Location.City,
 		"state":          event.Properties.Location.State,
-		"zip-code":       event.Properties.Location.ZipCode,
-		"unique-id":      uid,
+		"zipcode":        event.Properties.Location.ZipCode,
+		"uniqueID":       uid,
 	})
 	if err != nil {
 		return event, err
