@@ -3,6 +3,8 @@ package events
 import (
 	"time"
 
+	uuid "github.com/satori/go.uuid"
+
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -32,6 +34,7 @@ type properties struct {
 	TypeOfEvent string    `json:"typeofevent"`
 	Emblem      string    `json:"emblem"`
 	Rating      float64   `json:"rating"`
+	UniqueID    string
 	Location    location
 }
 
@@ -78,22 +81,25 @@ var LivePropertyRelationships = map[string]interface{}{
 
 // CreateEventNode . . . create a new event node from Event struct
 func CreateEventNode(event Event) (Event, error) {
-	// Create a node
 	node, err := Db.CreateNode(neoism.Props{
-		"name":          event.Properties.Name,
-		"date":          event.Properties.DateCreated,
-		"description":   event.Properties.Description,
-		"keywords":      event.Properties.Keywords,
-		"type-of-event": event.Properties.TypeOfEvent,
-		"emblem":        event.Properties.Emblem,
-		"rating":        event.Properties.Rating,
+		"name":           event.Properties.Name,
+		"date":           event.Properties.DateCreated,
+		"description":    event.Properties.Description,
+		"keywords":       event.Properties.Keywords,
+		"type-of-event":  event.Properties.TypeOfEvent,
+		"emblem":         event.Properties.Emblem,
+		"rating":         event.Properties.Rating,
+		"street-address": event.Properties.Location.StreetAddress,
+		"city":           event.Properties.Location.City,
+		"state":          event.Properties.Location.State,
+		"zip-code":       event.Properties.Location.ZipCode,
+		"unique-id":      uuid.NewV4(),
 	})
 	if err != nil {
 		return event, err
 	}
-	// Add a label
-	node.AddLabel("Event")
 
+	node.AddLabel("Event")
 	return event, nil
 }
 
