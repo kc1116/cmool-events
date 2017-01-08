@@ -49,6 +49,7 @@ var EventRelationships = map[string]interface{}{
 	"PostedVideo":   "POSTED_A_VIDEO",
 	"PostedComment": "POSTED_A_COMMENT",
 	"PostedPhoto":   "POSTED_A_PHOTO",
+	"IsLocated":     "IS_LOCATED",
 }
 
 //liveProperties ... properties that contain real time information or data
@@ -86,12 +87,6 @@ func CreateEventNode(event Event) (Event, error) {
 		"type-of-event": event.Properties.TypeOfEvent,
 		"emblem":        event.Properties.Emblem,
 		"rating":        event.Properties.Rating,
-		"location": neoism.Props{
-			"street-address": event.Properties.Location.StreetAddress,
-			"city":           event.Properties.Location.City,
-			"state":          event.Properties.Location.State,
-			"zipcode":        event.Properties.Location.ZipCode,
-		},
 	})
 	if err != nil {
 		return event, err

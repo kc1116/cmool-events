@@ -27,7 +27,8 @@ func TestCreateEventNode(t *testing.T) {
 	event, err := events.CreateEventNode(testEvent)
 	if err != nil {
 		t.Error("Expected an test event got an error:", err.Error())
+	} else {
+		t.Logf("TestCreateEventNode:%+v\n", event)
 	}
 
-	t.Log("TestCreateEventNode:", event)
 }
