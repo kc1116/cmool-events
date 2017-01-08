@@ -5,8 +5,6 @@ import (
 
 	uuid "github.com/satori/go.uuid"
 
-	"log"
-
 	"errors"
 
 	neoism "gopkg.in/jmcvetta/neoism.v1"
@@ -146,8 +144,6 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 		err := errors.New("Event node not found.")
 		return nil, err
 	}
-
-	log.Println(res[0].Event.Data)
 
 	return res[0].Event.Data, nil
 }
