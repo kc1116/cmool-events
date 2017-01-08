@@ -2,7 +2,21 @@ package events
 
 import (
 	"time"
+
+	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
+
+var (
+	Db *neoism.Database
+)
+
+func init() {
+	var err error
+	Db, err = neoism.Connect("http://neo4j:password@localhost:7474/db/data")
+	if err != nil {
+		panic(err)
+	}
+}
 
 // Event ... event struct for neo4j event nodes
 type Event struct {
@@ -17,7 +31,7 @@ type properties struct {
 	Keywords    []string  `json:"keywords"`
 	TypeOfEvent string    `json:"typeofevent"`
 	Emblem      string    `json:"emblem"`
-	Rating      string    `json:"rating"`
+	Rating      float64   `json:"rating"`
 }
 
 // EventRelationships ... neo4j relationships associated with Event nodes
@@ -52,3 +66,30 @@ type comment struct {
 var LivePropertyRelationships = map[string]interface{}{
 	"AssociatedWith": "ASSOCIATED_WITH",
 }
+
+// CreateEventNode . . . create a new event node from Event struct
+func CreateEventNode(event Event) (Event, error) {
+	// Create a node
+	node, err := Db.CreateNode(neoism.Props{
+		"name":          event.Properties.Name,
+		"date":          event.Properties.Date,
+		"description":   event.Properties.Description,
+		"keywords":      event.Properties.Keywords,
+		"type-of-event": event.Properties.TypeOfEvent,
+		"emblem":        event.Properties.Emblem,
+		"rating":        event.Properties.Rating,
+	})
+	if err != nil {
+		return event, err
+	}
+	// Add a label
+	node.AddLabel("Event")
+
+	return event, nil
+}
+
+//TODO getEvent()
+
+//TODO deleteEvent()
+
+//TODO updateEvent()
