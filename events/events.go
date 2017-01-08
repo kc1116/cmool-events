@@ -7,6 +7,8 @@ import (
 
 	"log"
 
+	"errors"
+
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -29,22 +31,22 @@ type Event struct {
 
 // An events properties
 type properties struct {
-	Name        string    `json:"name"`
-	DateCreated time.Time `json:"date"`
-	Description string    `json:"description"`
-	Keywords    []string  `json:"keywords"`
-	TypeOfEvent string    `json:"typeofevent"`
-	Emblem      string    `json:"emblem"`
-	Rating      float64   `json:"rating"`
+	Name        string    `json:"event.Name"`
+	DateCreated time.Time `json:"Date"`
+	Description string    `json:"Description"`
+	Keywords    []string  `json:"Keywords"`
+	TypeOfEvent string    `json:"TypeOfEvent"`
+	Emblem      string    `json:"Emblem"`
+	Rating      float64   `json:"Rating"`
 	UniqueID    string
 	Location    location
 }
 
 type location struct {
-	StreetAddress string `json:"address"`
-	City          string `json:"city"`
-	State         string `json:"state"`
-	ZipCode       string `json:"zipcode"`
+	StreetAddress string `json:"Address"`
+	City          string `json:"City"`
+	State         string `json:"State"`
+	ZipCode       string `json:"Zipcode"`
 }
 
 // EventRelationships ... neo4j relationships associated with Event nodes
@@ -65,15 +67,15 @@ type liveProperties struct {
 }
 
 type photo struct {
-	URI        string    `json:"uri"`
-	DatePosted time.Time `json:"date"`
-	UserID     string    `json:"userID"`
+	URI        string    `json:"Uri"`
+	DatePosted time.Time `json:"Date"`
+	UserID     string    `json:"UserID"`
 }
 
 type comment struct {
-	Message    string    `json:"message"`
-	DatePosted time.Time `json:"date"`
-	UserID     string    `json:"userID"`
+	Message    string    `json:"Message"`
+	DatePosted time.Time `json:"Date"`
+	UserID     string    `json:"UserID"`
 }
 
 // LivePropertyRelationships ... neo4j relationships associated with live property nodes
@@ -133,6 +135,12 @@ func GetEventNode(identifier string) (Event, error) {
 	if err != nil {
 		return event, err
 	}
+
+	if len(res) == 0 {
+		err := errors.New("Event node not found.")
+		return res[0], err
+	}
+
 	log.Println(res)
 	return res[0], nil
 }
