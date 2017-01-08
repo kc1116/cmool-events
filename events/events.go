@@ -26,11 +26,11 @@ func init() {
 
 // Event ... event struct for neo4j event nodes
 type Event struct {
-	Properties properties
+	Properties Properties
 }
 
 // An events properties
-type properties struct {
+type Properties struct {
 	Name        string    `json:"event.Name"`
 	DateCreated time.Time `json:"Date"`
 	Description string    `json:"Description"`
@@ -109,9 +109,9 @@ func CreateEventNode(event Event) (Event, error) {
 	return event, nil
 }
 
-// GetEventNode . . . get an event node
-func GetEventNode(identifier string) (Event, error) {
-	var event Event
+// GetEventNode . . . get an event node. returns properties assiciated with that node
+func GetEventNode(identifier string) (Properties, error) {
+	var props Properties
 
 	stmt := `
 		MATCH (event:Event)
@@ -123,7 +123,7 @@ func GetEventNode(identifier string) (Event, error) {
 	}
 
 	// query results
-	res := []Event{}
+	res := []Properties{}
 
 	cq := neoism.CypherQuery{
 		Statement:  stmt,
@@ -133,7 +133,7 @@ func GetEventNode(identifier string) (Event, error) {
 
 	err := Db.Cypher(&cq)
 	if err != nil {
-		return event, err
+		return props, err
 	}
 
 	if len(res) == 0 {

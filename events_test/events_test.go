@@ -34,7 +34,7 @@ func TestCreateEventNode(t *testing.T) {
 }
 
 func TestGetEventNode(t *testing.T) {
-	uuid := "88f372b1-12dd-48fc-8cc6-2967c3369e07"
+	uuid := "e17adaa4-a6d5-47c3-a8ee-13a59f4957d7"
 
 	event, err := events.GetEventNode(uuid)
 	if err != nil {
