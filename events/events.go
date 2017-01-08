@@ -39,7 +39,7 @@ type location struct {
 	StreetAddress string `json:"address"`
 	City          string `json:"city"`
 	State         string `json:"state"`
-	ZipCode       int32  `json:"zipcode"`
+	ZipCode       string `json:"zipcode"`
 }
 
 // EventRelationships ... neo4j relationships associated with Event nodes
