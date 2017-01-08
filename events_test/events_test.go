@@ -2,13 +2,14 @@ package cmn4j_test
 
 import (
 	"testing"
+	"time"
 
 	"github.com/kc1116/cmool-events/events"
 )
 
 var db = events.Db
 
-/*func TestCreateEventNode(t *testing.T) {
+func TestCreateEventNode(t *testing.T) {
 	var testEvent events.Event
 	testEvent.Properties.Name = "Test"
 	testEvent.Properties.DateCreated = time.Now()
@@ -29,7 +30,7 @@ var db = events.Db
 		t.Logf("TestCreateEventNode:%+v\n", event.Properties.UniqueID)
 	}
 
-}*/
+}
 
 func TestGetEventNode(t *testing.T) {
 	uuid := "3e8c0e55-3971-436a-b76e-7414be2db023"
