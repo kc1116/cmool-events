@@ -9,8 +9,6 @@ import (
 
 	"errors"
 
-	"encoding/json"
-
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -116,7 +114,7 @@ func CreateEventNode(event Event) (Event, error) {
 }
 
 // GetEventNode . . . get an event node. returns properties assiciated with that node
-func GetEventNode(identifier string) ([]byte, error) {
+func GetEventNode(identifier string) (map[string]interface{}, error) {
 	stmt := `
 		MATCH (event:Event)
 		WHERE event.UniqueID = {uid}
@@ -130,18 +128,7 @@ func GetEventNode(identifier string) ([]byte, error) {
 	//res := []Properties{}
 
 	res := []struct {
-		Name          string    `json:"event.Name"`
-		DateCreated   time.Time `json:"event.Date"`
-		Description   string    `json:"event.Description"`
-		Keywords      []string  `json:"event.Keywords"`
-		TypeOfEvent   string    `json:"event.TypeOfEvent"`
-		Emblem        string    `json:"event.Emblem"`
-		Rating        float64   `json:"event.Rating"`
-		StreetAddress string    `json:"event.StreetAddress"`
-		City          string    `json:"event.City"`
-		State         string    `json:"event.State"`
-		ZipCode       string    `json:"event.ZipCode"`
-		UniqueID      string    `json:"event.UniqueID"`
+		Event neoism.Node
 	}{}
 
 	cq := neoism.CypherQuery{
@@ -160,15 +147,9 @@ func GetEventNode(identifier string) ([]byte, error) {
 		return nil, err
 	}
 
-	log.Println(res)
-	b, err := json.Marshal(res[0])
-	if err != nil {
-		return nil, err
-	}
+	log.Println(res[0].Event.Data)
 
-	log.Println(string(b))
-
-	return b, nil
+	return res[0].Event.Data, nil
 }
 
 //TODO deleteEvent()
