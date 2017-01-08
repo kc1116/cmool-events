@@ -26,12 +26,20 @@ type Event struct {
 // An events properties
 type properties struct {
 	Name        string    `json:"name"`
-	Date        time.Time `json:"date"`
+	DateCreated time.Time `json:"date"`
 	Description string    `json:"description"`
 	Keywords    []string  `json:"keywords"`
 	TypeOfEvent string    `json:"typeofevent"`
 	Emblem      string    `json:"emblem"`
 	Rating      float64   `json:"rating"`
+	Location    location
+}
+
+type location struct {
+	StreetAddress string `json:"address"`
+	City          string `json:"city"`
+	State         string `json:"state"`
+	ZipCode       string `json:"zipcode"`
 }
 
 // EventRelationships ... neo4j relationships associated with Event nodes

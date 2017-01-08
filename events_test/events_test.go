@@ -3,18 +3,27 @@ package cmn4j_test
 import (
 	"testing"
 
-	"github.com/kc1116/cmool-neo4j/cmn4j"
+	"time"
+
+	"github.com/kc1116/cmool-events/events"
 )
 
-var api cmn4j.API
+var db = events.Db
 
 func TestCreateEventNode(t *testing.T) {
-	uri := "bs"
-	_, err := api.Connect(uri)
+	var testEvent events.Event
+	testEvent.Properties.Name = "Test"
+	testEvent.Properties.DateCreated = time.Now()
+	testEvent.Properties.Description = "This is a test event."
+	testEvent.Properties.Keywords = []string{"key", "words"}
+	testEvent.Properties.Rating = 3.5
+	testEvent.Properties.TypeOfEvent = "Just a Test"
+	testEvent.Properties.Emblem = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRjWFifmZY2WER6nCFNZOCtF2WSRm2vkDr3erTHUdTWFI8tCoQDJaXNJ5c"
 
-	f, ok := err.(error)
-	if !ok {
-		t.Error("Expected an error got", f)
+	event, err := events.CreateEventNode(testEvent)
+	if err != nil {
+		t.Error("Expected an test event got an error:", err.Error())
 	}
 
+	t.Log("TestCreateEventNode:", event)
 }
