@@ -86,18 +86,18 @@ var LivePropertyRelationships = map[string]interface{}{
 func CreateEventNode(event Event) (Event, error) {
 	uid := uuid.NewV4().String()
 	node, err := Db.CreateNode(neoism.Props{
-		"name":           event.Properties.Name,
-		"date":           event.Properties.DateCreated,
-		"description":    event.Properties.Description,
-		"keywords":       event.Properties.Keywords,
-		"typeOfEvent":    event.Properties.TypeOfEvent,
-		"emblem":         event.Properties.Emblem,
-		"rating":         event.Properties.Rating,
-		"street-address": event.Properties.Location.StreetAddress,
-		"city":           event.Properties.Location.City,
-		"state":          event.Properties.Location.State,
-		"zipcode":        event.Properties.Location.ZipCode,
-		"uniqueID":       uid,
+		"Name":          event.Properties.Name,
+		"DateCreated":   event.Properties.DateCreated,
+		"Description":   event.Properties.Description,
+		"Keywords":      event.Properties.Keywords,
+		"TypeOfEvent":   event.Properties.TypeOfEvent,
+		"Emblem":        event.Properties.Emblem,
+		"Rating":        event.Properties.Rating,
+		"StreetAddress": event.Properties.Location.StreetAddress,
+		"City":          event.Properties.Location.City,
+		"State":         event.Properties.Location.State,
+		"Zipcode":       event.Properties.Location.ZipCode,
+		"UniqueID":      uid,
 	})
 	if err != nil {
 		return event, err
