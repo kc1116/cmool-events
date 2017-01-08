@@ -101,6 +101,7 @@ func CreateEventNode(event Event) (Event, error) {
 	}
 
 	node.AddLabel("Event")
+	event.Properties.UniqueID = uid
 	return event, nil
 }
 
