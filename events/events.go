@@ -25,21 +25,25 @@ type Event struct {
 
 // An events properties
 type properties struct {
-	Name        string    `json:"name"`
-	DateCreated time.Time `json:"date"`
-	Description string    `json:"description"`
-	Keywords    []string  `json:"keywords"`
-	TypeOfEvent string    `json:"typeofevent"`
-	Emblem      string    `json:"emblem"`
-	Rating      float64   `json:"rating"`
-	Location    location
+	Name          string    `json:"name"`
+	DateCreated   time.Time `json:"date"`
+	Description   string    `json:"description"`
+	Keywords      []string  `json:"keywords"`
+	TypeOfEvent   string    `json:"typeofevent"`
+	Emblem        string    `json:"emblem"`
+	Rating        float64   `json:"rating"`
+	StreetAddress string    `json:"address"`
+	City          string    `json:"city"`
+	State         string    `json:"state"`
+	ZipCode       string    `json:"zipcode"`
+	Location      location
 }
 
 type location struct {
 	StreetAddress string `json:"address"`
 	City          string `json:"city"`
 	State         string `json:"state"`
-	ZipCode       string `json:"zipcode"`
+	ZipCode       int32  `json:"zipcode"`
 }
 
 // EventRelationships ... neo4j relationships associated with Event nodes
@@ -80,12 +84,18 @@ func CreateEventNode(event Event) (Event, error) {
 	// Create a node
 	node, err := Db.CreateNode(neoism.Props{
 		"name":          event.Properties.Name,
-		"date":          event.Properties.Date,
+		"date":          event.Properties.DateCreated,
 		"description":   event.Properties.Description,
 		"keywords":      event.Properties.Keywords,
 		"type-of-event": event.Properties.TypeOfEvent,
 		"emblem":        event.Properties.Emblem,
 		"rating":        event.Properties.Rating,
+		"location": neoism.Props{
+			"street-address": event.Properties.Location.StreetAddress,
+			"city":           event.Properties.Location.City,
+			"state":          event.Properties.Location.State,
+			"zipcode":        event.Properties.Location.ZipCode,
+		},
 	})
 	if err != nil {
 		return event, err
