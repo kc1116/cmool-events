@@ -9,6 +9,8 @@ import (
 
 	"errors"
 
+	"encoding/json"
+
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -31,7 +33,7 @@ type Event struct {
 
 // An events properties
 type Properties struct {
-	Name          string    `json:"event.Name"`
+	Name          string    `json:"Name"`
 	DateCreated   time.Time `json:"Date"`
 	Description   string    `json:"Description"`
 	Keywords      []string  `json:"Keywords"`
@@ -114,9 +116,7 @@ func CreateEventNode(event Event) (Event, error) {
 }
 
 // GetEventNode . . . get an event node. returns properties assiciated with that node
-func GetEventNode(identifier string) (Properties, error) {
-	var props Properties
-
+func GetEventNode(identifier string) (bytes, error) {
 	stmt := `
 		MATCH (event:Event)
 		WHERE event.UniqueID = {uid}
@@ -127,7 +127,22 @@ func GetEventNode(identifier string) (Properties, error) {
 	}
 
 	// query results
-	res := []Properties{}
+	//res := []Properties{}
+
+	res := []struct {
+		Name          string    `json:"event.Name"`
+		DateCreated   time.Time `json:"event.Date"`
+		Description   string    `json:"event.Description"`
+		Keywords      []string  `json:"event.Keywords"`
+		TypeOfEvent   string    `json:"event.TypeOfEvent"`
+		Emblem        string    `json:"event.Emblem"`
+		Rating        float64   `json:"event.Rating"`
+		StreetAddress string    `json:"event.StreetAddress"`
+		City          string    `json:"event.City"`
+		State         string    `json:"event.State"`
+		ZipCode       string    `json:"event.ZipCode"`
+		UniqueID      string    `json:"event.UniqueID"`
+	}{}
 
 	cq := neoism.CypherQuery{
 		Statement:  stmt,
@@ -137,16 +152,23 @@ func GetEventNode(identifier string) (Properties, error) {
 
 	err := Db.Cypher(&cq)
 	if err != nil {
-		return props, err
+		return nil, err
 	}
 
 	if len(res) == 0 {
 		err := errors.New("Event node not found.")
-		return res[0], err
+		return nil, err
 	}
 
 	log.Println(res)
-	return res[0], nil
+	b, err := json.Marshal(res[0])
+	if err != nil {
+		return nil, err
+	}
+
+	log.Println(string(b))
+
+	return b, nil
 }
 
 //TODO deleteEvent()
