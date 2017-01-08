@@ -5,6 +5,8 @@ import (
 
 	uuid "github.com/satori/go.uuid"
 
+	"log"
+
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -131,7 +133,7 @@ func GetEventNode(identifier string) (Event, error) {
 	if err != nil {
 		return event, err
 	}
-
+	log.Println(res)
 	return res[0], nil
 }
 
