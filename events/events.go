@@ -25,18 +25,14 @@ type Event struct {
 
 // An events properties
 type properties struct {
-	Name          string    `json:"name"`
-	DateCreated   time.Time `json:"date"`
-	Description   string    `json:"description"`
-	Keywords      []string  `json:"keywords"`
-	TypeOfEvent   string    `json:"typeofevent"`
-	Emblem        string    `json:"emblem"`
-	Rating        float64   `json:"rating"`
-	StreetAddress string    `json:"address"`
-	City          string    `json:"city"`
-	State         string    `json:"state"`
-	ZipCode       string    `json:"zipcode"`
-	Location      location
+	Name        string    `json:"name"`
+	DateCreated time.Time `json:"date"`
+	Description string    `json:"description"`
+	Keywords    []string  `json:"keywords"`
+	TypeOfEvent string    `json:"typeofevent"`
+	Emblem      string    `json:"emblem"`
+	Rating      float64   `json:"rating"`
+	Location    location
 }
 
 type location struct {
