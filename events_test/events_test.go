@@ -32,3 +32,15 @@ func TestCreateEventNode(t *testing.T) {
 	}
 
 }
+
+func TestGetEventNode(t *testing.T) {
+	uuid := "f06b0705-e517-446e-8e1c-d8bfb62b796f"
+
+	event, err := events.GetEventNode(uuid)
+	if err != nil {
+		t.Error("Expected an test event got an error:", err.Error())
+	} else {
+		t.Logf("TestGetEventNode:%+v\n", event.Properties.UniqueID)
+	}
+
+}
