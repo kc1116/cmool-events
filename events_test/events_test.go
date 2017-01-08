@@ -40,7 +40,7 @@ func TestGetEventNode(t *testing.T) {
 	if err != nil {
 		t.Error("Expected an test event got an error:", err.Error())
 	} else {
-		t.Logf("TestGetEventNode:%+v\n", event.Properties)
+		t.Logf("TestGetEventNode:%+v\n", event)
 	}
 
 }

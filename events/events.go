@@ -115,11 +115,11 @@ func GetEventNode(identifier string) (Properties, error) {
 
 	stmt := `
 		MATCH (event:Event)
-		WHERE event.UniqueID = {UniqueID}
+		WHERE event.UniqueID = {uid}
 		RETURN event
 	`
 	params := neoism.Props{
-		"UniqueID": identifier,
+		"uid": identifier,
 	}
 
 	// query results
