@@ -116,7 +116,7 @@ func CreateEventNode(event Event) (Event, error) {
 }
 
 // GetEventNode . . . get an event node. returns properties assiciated with that node
-func GetEventNode(identifier string) (bytes, error) {
+func GetEventNode(identifier string) ([]byte, error) {
 	stmt := `
 		MATCH (event:Event)
 		WHERE event.UniqueID = {uid}
