@@ -20,6 +20,15 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	// EventRelationships ... neo4j relationships associated with Event nodes
+	var EventRelationships map[string]interface{}
+	EventRelationships["Attended"] = "ATTENDED"
+	EventRelationships["IsAttending"] = "IS_ATTENDING"
+	EventRelationships["PostedVideo"] = "POSTED_A_VIDEO"
+	EventRelationships["PostedComment"] = "POSTED_A_COMMENT"
+	EventRelationships["PostedPhoto"] = "POSTED_A_PHOTO"
+	EventRelationships["IsLocated"] = "IS_LOCATED"
 }
 
 // Event ... event struct for neo4j event nodes
@@ -49,16 +58,6 @@ type location struct {
 	City          string `json:"City"`
 	State         string `json:"State"`
 	ZipCode       string `json:"Zipcode"`
-}
-
-// EventRelationships ... neo4j relationships associated with Event nodes
-var EventRelationships = map[string]interface{}{
-	"Attended":      "ATTENDED",
-	"IsAttending":   "IS_ATTENDING",
-	"PostedVideo":   "POSTED_A_VIDEO",
-	"PostedComment": "POSTED_A_COMMENT",
-	"PostedPhoto":   "POSTED_A_PHOTO",
-	"IsLocated":     "IS_LOCATED",
 }
 
 //liveProperties ... properties that contain real time information or data
@@ -121,9 +120,6 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 	params := neoism.Props{
 		"uid": identifier,
 	}
-
-	// query results
-	//res := []Properties{}
 
 	res := []struct {
 		Event neoism.Node
