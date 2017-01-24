@@ -11,7 +11,7 @@ var db = events.Db
 
 func TestCreateEventNode(t *testing.T) {
 	var testEvent events.Event
-	testEvent.Properties.Name = "Test"
+	testEvent.Properties.Name = "NEWBOY"
 	testEvent.Properties.DateCreated = time.Now()
 	testEvent.Properties.Description = "This is a test event."
 	testEvent.Properties.Keywords = []string{"key", "words"}
