@@ -22,6 +22,7 @@ func TestCreateEventNode(t *testing.T) {
 	testEvent.Properties.Location.State = "New Jersey"
 	testEvent.Properties.Location.StreetAddress = "1 Harrison ave"
 	testEvent.Properties.Location.ZipCode = "07029"
+	testEvent.Properties.Likes = 0
 
 	event, err := events.CreateEventNode(testEvent)
 	if err != nil {
