@@ -41,6 +41,7 @@ type Properties struct {
 	State         string    `json:"State"`
 	Zipcode       string    `json:"ZipCode"`
 	UniqueID      string    `json:"UniqueID"`
+	Likes         int       `json:"Likes"`
 	Location      location
 }
 
@@ -100,6 +101,7 @@ func CreateEventNode(event Event) (Event, error) {
 		"City":          event.Properties.Location.City,
 		"State":         event.Properties.Location.State,
 		"Zipcode":       event.Properties.Location.ZipCode,
+		"Likes":         event.Properties.Likes,
 		"UniqueID":      uid,
 	})
 	if err != nil {
