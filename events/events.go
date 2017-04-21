@@ -157,10 +157,16 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 func init() {
 	dir, err := os.Getwd()
 	if err != nil {
-		log.Println(err)
+		log.Println(err.Error())
 	}
 	file, err := os.Open(dir + "/README.md")
+	if err != nil {
+		log.Println(err.Error())
+	}
 	defer file.Close()
-
-	log.Println(file.Stat())
+	stat, err := file.Stat()
+	if err != nil {
+		log.Println(err.Error())
+	}
+	log.Println(stat)
 }
