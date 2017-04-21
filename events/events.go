@@ -17,13 +17,13 @@ var (
 	Db *neoism.Database
 )
 
-func init() {
+/*func init() {
 	var err error
 	Db, err = neoism.Connect("http://neo4j:password@localhost:7474/db/data")
 	if err != nil {
 		panic(err)
 	}
-}
+}*/
 
 // Event ... event struct for neo4j event nodes
 type Event struct {
