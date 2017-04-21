@@ -155,5 +155,5 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 //TODO updateEvent()
 
 func init() {
-	log.Println(os.Getwd)
+	log.Println(os.Getwd())
 }
