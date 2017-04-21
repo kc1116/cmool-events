@@ -155,5 +155,12 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 //TODO updateEvent()
 
 func init() {
-	log.Println(os.Getwd())
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	file, err := os.Open(dir + "/README.md")
+	defer file.Close()
+
+	log.Println(file.Stat())
 }
