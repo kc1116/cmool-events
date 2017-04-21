@@ -168,5 +168,5 @@ func init() {
 	if err != nil {
 		log.Println(err.Error())
 	}
-	log.Println(stat)
+	log.Println(stat.Name(), stat.Size)
 }
