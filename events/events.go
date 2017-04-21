@@ -7,6 +7,9 @@ import (
 
 	"errors"
 
+	"log"
+	"os"
+
 	neoism "gopkg.in/jmcvetta/neoism.v1"
 )
 
@@ -150,3 +153,7 @@ func GetEventNode(identifier string) (map[string]interface{}, error) {
 //TODO deleteEvent()
 
 //TODO updateEvent()
+
+func init() {
+	log.Println(os.Getwd)
+}
